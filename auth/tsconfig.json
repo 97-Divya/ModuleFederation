@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ES2020"],
+    "jsx": "react-jsx",
+    "target": "ES2020",
+
+    /* Emit options needed for MF DTS plugin */
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist/types",
+    "noEmit": false,               
+
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+
+    /* modules */
+    "module": "ESNext",
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+
+    /* type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "*": ["./@mf-types/*"],
+          "auth/useAuthStore": ["./@mf-types/auth-useAuthStore.d.ts"]
+
+    }
+  },
+  "include": ["src"]
+}
