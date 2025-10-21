@@ -1,0 +1,13 @@
+/* BookingConfirmationPage.css */
+.confirmation-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.confirmation-container h2 {
+  color: #2a2a2a;
+}
+
+.confirmation-container p {
+  font-size: 16px;
+}

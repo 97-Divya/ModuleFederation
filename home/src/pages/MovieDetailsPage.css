@@ -1,0 +1,19 @@
+/* MovieDetailsPage.css */
+.details-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.book-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #1c1c1c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.book-button:hover {
+  background-color: #333;
+}

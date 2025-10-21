@@ -1,1 +1,2 @@
-import('./bootstrap');
+/// <reference types="@rsbuild/core/types" />
+import("./bootstrap");

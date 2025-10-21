@@ -19,10 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "*": ["./@mf-types/*"],
-      "auth/useAuthStore": ["./@mf-types/auth-useAuthStore.d.ts"],
-      "home/HomePage": ["./@mf-types/home-HomePage.d.ts"]
-
+      "*": ["./@mf-types/*"]
     }
   },
   "include": ["src","@mf-types"]

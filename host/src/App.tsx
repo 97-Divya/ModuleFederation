@@ -1,71 +1,68 @@
-// import { Suspense, lazy, useEffect, useState } from "react";
-// import useAuthStore from "auth/useAuthStore"; // default import
-// const LoginForm = lazy(() => import("auth/LoginForm"));
-// const HomePage = lazy(() => import("home/HomePage")); // ✅ TS knows the type now
+import React, { Suspense, lazy } from "react";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
-// const App = () => {
-//   const { loggedInUser, logout } = useAuthStore();
-//   const [page, setPage] = useState<"auth" | "home">("auth");
-
-//   useEffect(() => {
-//     if (loggedInUser) setPage("home");
-//     else setPage("auth");
-//   }, [loggedInUser]);
-
-//   return (
-//     <Suspense fallback={<div>Loading...</div>}>
-//       {page === "auth" && <LoginForm />}
-//       {page === "home" && <HomePage username={loggedInUser} logout={logout} />}
-//     </Suspense>
-//   );
-// };
-
-// export default App;
-// host/src/App.tsx
-// host/src/App.tsx
-import React, { Suspense, lazy, useEffect, useState } from "react";
-
-// Lazy-load remote components
 const LoginForm = lazy(() => import("auth/LoginForm"));
+const SignupForm = lazy(() => import("auth/SignupForm"));
 const HomePage = lazy(() => import("home/HomePage"));
+const MovieDetailsPage = lazy(() => import("home/MovieDetailsPage"));
+const BookingPage = lazy(() => import("booking/BookingPage"));
+const BookingConfirmationPage = lazy(() => import("booking/BookingConfirmationPage"));
 
 const App: React.FC = () => {
-  const [useAuthStore, setUseAuthStore] = useState<any>(null);
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
-  const [page, setPage] = useState<"auth" | "home">("auth");
+  const router = createBrowserRouter([
+    { path: "/", element: <Navigate to="/login" replace /> },
+    {
+      path: "/login",
+      element: (
+        <Suspense fallback={<p>Loading Login...</p>}>
+          <LoginForm />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <Suspense fallback={<p>Loading Signup...</p>}>
+          <SignupForm />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/home",
+      element: (
+        <Suspense fallback={<p>Loading Home...</p>}>
+          <HomePage username="Guest" logout={() => console.log("Logged out")} />
+        </Suspense>
+      ),
+      errorElement: <p>Something went wrong loading Home.</p>,
+    },
+    {
+      path: "/movie/:id",
+      element: (
+        <Suspense fallback={<p>Loading Movie Details...</p>}>
+          <MovieDetailsPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/booking",
+      element: (
+        <Suspense fallback={<p>Loading Booking...</p>}>
+          <BookingPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/confirmation",
+      element: (
+        <Suspense fallback={<p>Loading Confirmation...</p>}>
+          <BookingConfirmationPage />
+        </Suspense>
+      ),
+    },
+  ]);
 
-  // ✅ Dynamically load the store after remote is initialized
-  useEffect(() => {
-    import("auth/useAuthStore")
-      .then((mod) => {
-        const store = mod.default;
-        setUseAuthStore(() => store);
-        const { loggedInUser } = store.getState();
-        setLoggedInUser(loggedInUser);
-        store.subscribe((state: any) => {
-          setLoggedInUser(state.loggedInUser);
-        });
-      })
-      .catch((err) => console.error("Failed to load useAuthStore:", err));
-  }, []);
-
-  const logout = () => {
-    if (useAuthStore) useAuthStore.getState().logout();
-  };
-
-  useEffect(() => {
-    if (loggedInUser) setPage("home");
-    else setPage("auth");
-  }, [loggedInUser]);
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {page === "auth" && <LoginForm />}
-      {page === "home" && (
-        <HomePage username={loggedInUser} logout={logout} />
-      )}
-    </Suspense>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

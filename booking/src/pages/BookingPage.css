@@ -1,0 +1,17 @@
+.booking-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.booking-input {
+  padding: 10px;
+  margin-top: 10px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.booking-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}

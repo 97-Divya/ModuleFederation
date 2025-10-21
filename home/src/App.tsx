@@ -1,13 +1,15 @@
-// home-app/src/App.tsx
-import React, { useState } from "react";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import MovieDetailsPage from "./pages/MovieDetailsPage";
 
 const App: React.FC = () => {
-  const [username, setUsername] = useState<string | null>("DemoUser");
-
-  const logout = () => setUsername(null);
-
-  return <HomePage username={username} logout={logout} />;
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage username="Guest" logout={() => {}} />} />
+      <Route path="/movie/:id" element={<MovieDetailsPage />} />
+    </Routes>
+  );
 };
 
 export default App;
