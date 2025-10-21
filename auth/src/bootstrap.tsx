@@ -1,4 +1,4 @@
-// import React from "react";
+//bootstrap.tsx
 import { createRoot } from "react-dom/client";
 import App from "./App";
 
